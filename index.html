@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Boost Academy — Plataforma de Aprendizaje</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+  <!-- Fondo animado sutil con orbes degradados -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Barra superior con acceso a Informacion de la Academia -->
+  <header class="auth-topbar">
+    <div class="brand-mini">
+      <img src="assets/logo.jpg" alt="Logo English Boost Academy" class="brand-logo-mini" />
+      <span class="brand-name">English Boost Academy</span>
+    </div>
+    <button type="button" class="btn-info-header" onclick="openInfoModal()" title="Informacion de la aplicacion">
+      <span class="icon-slot" id="topInfoIcon"></span>
+      <span>Conoce la Academia</span>
+    </button>
+  </header>
+
+  <!-- Contenedor de notificaciones Toast (sin emojis) -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===================== LOGIN ===================== -->
+  <section id="loginSection" class="auth-section page-enter">
+    <div class="auth-card card">
+
+      <div class="auth-logo">
+        <img src="assets/logo.jpg" alt="Logo English Boost Academy" class="brand-logo-img" />
+        <div>
+          <h1 class="auth-title">English Boost Academy</h1>
+          <p class="auth-subtitle">Aprende ingles a tu ritmo y supera tus limites</p>
+        </div>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-fields">
+
+          <div class="input-group">
+            <label for="loginEmail">Correo electronico</label>
+            <input type="email" id="loginEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email" required />
+          </div>
+
+          <div class="input-group">
+            <label for="loginPassword">Contrasena</label>
+            <div class="input-password-wrap">
+              <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required />
+              <button type="button" class="toggle-pw" onclick="togglePassword('loginPassword', this)" tabindex="-1" aria-label="Mostrar contrasena">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg mt-4" id="loginBtn">
+          Iniciar sesion
+        </button>
+
+        <!-- Historial de cuentas iniciadas (Requerimiento 6.1.2) -->
+        <div class="auth-accounts" id="savedAccounts"></div>
+
+        <div class="auth-divider"><span>o</span></div>
+
+        <p class="auth-switch">
+          No tienes cuenta?
+          <button type="button" class="link-btn" onclick="showSection('registerSection')">Registrate aqui</button>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== REGISTRO ===================== -->
+  <section id="registerSection" class="auth-section hidden">
+    <div class="auth-card card page-enter">
+
+      <div class="auth-logo">
+        <img src="assets/logo.jpg" alt="Logo English Boost Academy" class="brand-logo-img" />
+        <div>
+          <h1 class="auth-title">Crear cuenta</h1>
+          <p class="auth-subtitle">Paso 1: Datos principales de acceso</p>
+        </div>
+      </div>
+
+      <form id="registerForm" novalidate>
+        <div class="form-fields">
+
+          <div class="input-group">
+            <label for="regName">Nombre completo</label>
+            <input type="text" id="regName" placeholder="Tu nombre real o de estudiante" autocomplete="name" required />
+          </div>
+
+          <div class="input-group">
+            <label for="regEmail">Correo electronico</label>
+            <input type="email" id="regEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email" required />
+          </div>
+
+          <div class="input-group">
+            <label for="regPassword">Contrasena</label>
+            <div class="input-password-wrap">
+              <input type="password" id="regPassword" placeholder="Minimo 6 caracteres" autocomplete="new-password" required />
+              <button type="button" class="toggle-pw" onclick="togglePassword('regPassword', this)" tabindex="-1">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="regPassword2">Confirmar contrasena</label>
+            <div class="input-password-wrap">
+              <input type="password" id="regPassword2" placeholder="Repite tu contrasena" autocomplete="new-password" required />
+              <button type="button" class="toggle-pw" onclick="togglePassword('regPassword2', this)" tabindex="-1">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Selector de idioma preferido -->
+          <div class="input-group">
+            <label for="regLang">Idioma de preferencia</label>
+            <select id="regLang" class="select-input">
+              <option value="es">Espanol</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg mt-4" id="registerBtn">
+          Continuar a personalizacion de personaje
+        </button>
+
+        <div class="auth-divider"><span>o</span></div>
+
+        <p class="auth-switch">
+          Ya tienes cuenta?
+          <button type="button" class="link-btn" onclick="showSection('loginSection')">Inicia sesion</button>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== PERSONALIZACION DE PERSONAJE ===================== -->
+  <!-- Requerimiento 6.1.3: Editar perfil antes de haber iniciado sesion -->
+  <section id="characterSection" class="auth-section hidden">
+    <div class="auth-card card page-enter" style="max-width:480px">
+
+      <div class="character-header">
+        <div class="character-avatar" id="characterAvatar">
+          <!-- Renderizado con SVG vectorial (cero emojis) -->
+        </div>
+        <h2>Elige tu personaje y emblema</h2>
+        <p class="text-muted text-small">Este perfil aparecera en la tabla de clasificacion de la academia</p>
+      </div>
+
+      <form id="characterForm">
+        <div class="input-group">
+          <label for="charName">Nombre de personaje o aventurero</label>
+          <input type="text" id="charName" placeholder="Ej: StarLearner, EnglishMaster" maxlength="20" required />
+          <span class="char-count"><span id="charCount">0</span>/20</span>
+        </div>
+
+        <div class="avatar-picker">
+          <p class="text-muted text-small mb-4">Selecciona tu emblema de aprendizaje (Vectorial)</p>
+          <div class="avatar-grid" id="avatarGrid">
+            <!-- Rellenado dinamicamente con iconos vectoriales SVG -->
+          </div>
+        </div>
+
+        <div class="btn-group-row mt-4">
+          <button type="button" class="btn btn-secondary" onclick="backToRegister()" title="Editar datos anteriores">
+            Volver a editar datos
+          </button>
+          <button type="submit" class="btn btn-primary" id="finishRegBtn">
+            Finalizar y Guardar Cuenta
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== MODAL DE INFORMACION DE LA APP ===================== -->
+  <!-- Requerimiento 8.1.2 y 9.1.4: Acceder a informacion de la aplicacion -->
+  <div class="modal-backdrop hidden" id="infoModal">
+    <div class="modal-card card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" id="modalInfoIconBadge"></div>
+          <div>
+            <h3>English Boost Academy</h3>
+            <span class="text-muted text-small">Guia e Informacion General del Sistema</span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeInfoModal()" aria-label="Cerrar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-block">
+          <h4>1. Objetivo del Programa</h4>
+          <p>Plataforma disenada para que estudiantes aprendan ingles progresivamente a traves de pruebas de conocimiento evaluadas en una escala de 1 a 10, con niveles consecutivos de dificultad sin limites.</p>
+        </div>
+
+        <div class="info-block">
+          <h4>2. Dinamica de Practica</h4>
+          <ul>
+            <li><strong>Modulos de ejercicio:</strong> Traduccion (ingles-espanol y espanol-ingles), frases cotidianas, vocabulario de objetos y animales, temas de conversacion y pruebas de evaluacion.</li>
+            <li><strong>Sesiones de estudio:</strong> Disenadas en intervalos de 10 a 15 minutos para optimizar la retencion academica.</li>
+            <li><strong>Evaluaciones consecutivas:</strong> Pruebas estructuradas cada 10 ejercicios con calificacion del 1 al 10.</li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h4>3. Restricciones Fundamentales del Sistema</h4>
+          <ul>
+            <li><strong>Respeto y Convivencia:</strong> Prohibido el uso de palabras obscenas u ofensivas en nombres de usuario y respuestas.</li>
+            <li><strong>Estetica sobria y profesional:</strong> Diseno minimalista sin uso de emojis, empleando simbologia vectorial moderna.</li>
+            <li><strong>Autonomia del estudiante:</strong> Enfoque en el esfuerzo real del alumno sin depender de ayudas automatizadas externas.</li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h4>4. Persistencia y Privacidad en Formato JSON</h4>
+          <p>Tus datos de progreso, historial de sesiones y evaluaciones se estructuran y almacenan bajo el formato universal JSON en tu navegador. Puedes consultar y descargar tu registro completo en cualquier momento desde tu perfil.</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="closeInfoModal()">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts en orden de dependencia -->
+  <script src="js/icons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
